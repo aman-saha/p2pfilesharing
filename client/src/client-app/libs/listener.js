@@ -9,10 +9,6 @@ const fileDirectory = path.join(__dirname,'../../../shared');
 
 /**
 * This file basically connects with the UI part of the client application ,
-* Talking with the express server and baanki gawaaar users se baat krna
-* Will not be able to handle all the exceptions.
-* Since this is not a *FOOLPROOF* program.
-* Chill and inform {krshubham} in case of any issues.
 */
 //export default exports this fuction so that it can be used anywhere
 
@@ -22,12 +18,14 @@ export default (io) => {
 		logger.green('Connection established with the client');
 		
 		socket.on('connectToPeer', (peer) => {
+			console.log(peer);
 			start = new Date()
 			peer.ip = peer.ip.split(':')[3];
 			/**
 			* Connect to the second client and ask it for the file
 			*/
 			console.log(`http://${peer.ip}:${peer.port}`);
+
 			const client = socketIOClient(`http://${peer.ip}:${peer.port}`);
 			client.on('connect', () => {
 				console.log('Successfully connected to the peer');
